@@ -1,8 +1,73 @@
+<script setup>
+import ProductList from "./components/ProductList.vue";
+import { onMounted, ref } from "vue";
+import axios from "axios";
+
+const items = ref([]);
+const fetchItems = async () => {
+  try {
+    const { data } = await axios.get("https://b1b1c464ab9d62f5.mokky.dev/items");
+    items.value = data.map((obj) => ({
+      ...obj,
+      isFavorite: false,
+      isAdded: false,
+    }));
+  } catch (e) {
+    console.log(e);
+  }
+};
+onMounted(async () => {
+  await fetchItems();
+});
+</script>
 
 <template>
-  <body>
-    <h1 class = "text-3xl font-bold underline">Hello, world!</h1>
+  <body class="flex flex-col justify-between h-dvh">
+    <div class="mx-auto w-[1440px] mb-25">
+      <nav class="py-3 border-b border-b-slate-200">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <img src="/logo.svg" alt="logo" />
+            <p class="text-sm">
+              Лучшие цены <br />
+              в интернет-магазинах
+            </p>
+          </div>
+          <ul class="flex gap-10">
+            <li>
+              <a href="" class="flex gap-3 items-center">
+                <span class="p-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition">
+                  <img src="/cart-icon.svg" alt="Cart" />
+                </span>
+                Корзина
+              </a>
+            </li>
+            <li>
+              <a href="" class="flex gap-3 items-center">
+                <span class="p-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition">
+                  <img src="/like-outline.svg" alt="Cart" />
+                </span>
+                Избранное
+              </a>
+            </li>
+            <li>
+              <a href="" class="flex gap-3 items-center">
+                <span class="p-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition">
+                  <img src="/orders-icon.svg" alt="Cart" />
+                </span>
+                Заказы
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <main class="pt-10">
+        <h1 class="text-[40px] font-bold mb-5">Каталог</h1>
+        <product-list :items="items"></product-list>
+      </main>
+    </div>
+    <footer class="p-6 bg-slate-100">
+      <div>Copyright © 2024 Behoof, Inc. All rights reserved.</div>
+    </footer>
   </body>
 </template>
-
-
