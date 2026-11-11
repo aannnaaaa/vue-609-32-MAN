@@ -1,24 +1,5 @@
 <script setup>
-import ProductList from "./components/ProductList.vue";
-import { onMounted, ref } from "vue";
-import axios from "axios";
-
-const items = ref([]);
-const fetchItems = async () => {
-  try {
-    const { data } = await axios.get("https://b1b1c464ab9d62f5.mokky.dev/items");
-    items.value = data.map((obj) => ({
-      ...obj,
-      isFavorite: false,
-      isAdded: false,
-    }));
-  } catch (e) {
-    console.log(e);
-  }
-};
-onMounted(async () => {
-  await fetchItems();
-});
+import VCatalog from "./components/VCatalog.vue";
 </script>
 
 <template>
@@ -61,10 +42,7 @@ onMounted(async () => {
           </ul>
         </div>
       </nav>
-      <main class="pt-10">
-        <h1 class="text-[40px] font-bold mb-5">Каталог</h1>
-        <product-list :items="items"></product-list>
-      </main>
+      <v-catalog />
     </div>
     <footer class="p-6 bg-slate-100">
       <div>Copyright © 2024 Behoof, Inc. All rights reserved.</div>

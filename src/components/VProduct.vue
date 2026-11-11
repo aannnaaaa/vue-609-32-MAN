@@ -10,7 +10,7 @@ defineProps({
   <div class="p-5 bg-slate-100 rounded-xl flex flex-col justify-between gap-2">
     <div>
       <img :src="imgUrl" alt="product" class="mb-4" />
-      <h3 class=":text-xl font-semibold">
+      <h3 class="text-xl font-semibold">
         {{ title }}
       </h3>
     </div>
